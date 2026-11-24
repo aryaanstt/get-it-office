@@ -556,8 +556,8 @@ function closeAuth(keep) { $('#auth').classList.remove('on'); $('#auth').setAttr
 function renderAuth(msg) {
   const x = `<button class="ib x" data-au-close aria-label="Tutup"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>`
   if (USER) { $('#authIn').innerHTML = `<div class="mtop"><div><h2>Akun bos</h2><div class="eyebrow">${MODE === 'bos' ? 'Mode bos aktif' : 'Mode tamu'}</div></div>${x}</div><p class="muted">Masuk sebagai <b>${esc(USER.email || '')}</b>.</p><button class="btn" data-au-out style="width:100%;height:44px">Keluar</button>`; return }
-  $('#authIn').innerHTML = `<div class="mtop"><div><h2>Masuk</h2><div class="eyebrow">Cuma buat pemilik kantor</div></div>${x}</div>
-    <p class="muted">Pakai akun get it yang sama kayak di Get a Job. Abis masuk, lu bisa jawab keputusan dan ngobrol sama tim.</p>
+  $('#authIn').innerHTML = `<div class="mtop"><div><h2>Masuk</h2></div>${x}</div>
+    <p class="muted">Masuk cuma buat pemilik kantor.</p>
     <form class="form" id="auForm" novalidate><label for="auEmail">Email</label><input id="auEmail" type="email" autocomplete="email" inputmode="email" required>
     <label for="auPass">Kata sandi</label><input id="auPass" type="password" autocomplete="current-password" required>
     ${msg ? `<p class="err" role="status">${esc(msg)}</p>` : ''}<button class="btn pri" type="submit" ${authBusy ? 'disabled' : ''}>${authBusy ? 'Sebentar…' : 'Masuk'}</button></form>`
