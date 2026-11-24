@@ -555,7 +555,7 @@ function openAuth(msg) { closeProfile(); closeDesk(true); renderAuth(msg); $('#a
 function closeAuth(keep) { $('#auth').classList.remove('on'); $('#auth').setAttribute('aria-hidden', 'true'); if (!keep) $('#scrim').classList.remove('on') }
 function renderAuth(msg) {
   const x = `<button class="ib x" data-au-close aria-label="Tutup"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>`
-  if (USER) { $('#authIn').innerHTML = `<div class="mtop"><div><h2>Akun bos</h2><div class="eyebrow">${MODE === 'bos' ? 'Mode bos aktif' : 'Mode tamu'}</div></div>${x}</div><p class="muted">Masuk sebagai <b>${esc(USER.email || '')}</b>.</p><button class="btn" data-au-out style="width:100%;height:44px">Keluar</button>`; return }
+  if (USER) { $('#authIn').innerHTML = `<div class="mtop"><div><h2>Akun bos</h2><div class="eyebrow">${MODE === 'bos' ? 'Mode bos aktif' : 'Mode tamu'}</div></div>${x}</div><p class="muted">Masuk sebagai <b>${esc(USER.email || '')}</b>.</p>${MODE === 'bos' ? '<div id="notifBox"></div>' : ''}<button class="btn" data-au-out style="width:100%;height:44px">Keluar</button>`; if (MODE === 'bos' && typeof segarNotifOffice === 'function') segarNotifOffice(); return }
   $('#authIn').innerHTML = `<div class="mtop"><div><h2>Masuk</h2></div>${x}</div>
     <p class="muted">Masuk cuma buat pemilik kantor.</p>
     <form class="form" id="auForm" novalidate><label for="auEmail">Email</label><input id="auEmail" type="email" autocomplete="email" inputmode="email" required>
