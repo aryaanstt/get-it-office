@@ -1,0 +1,16 @@
+{
+  "name": "get it office",
+  "short_name": "get it office",
+  "description": "Kantor tim AI Arya: siapa lagi ngerjain apa, kabar terbaru, dan keputusan yang nunggu bos.",
+  "start_url": "./#kantor",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F2F4F7",
+  "theme_color": "#0E1525",
+  "lang": "id",
+  "icons": [
+    { "src": "ikon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "ikon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

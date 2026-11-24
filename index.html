@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>get it office</title>
+<meta name="description" content="Kantor tim AI Arya: siapa lagi ngerjain apa, kabar terbaru, dan keputusan yang nunggu bos.">
+<meta name="theme-color" content="#F2F4F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111110" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="get it office">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=JetBrains+Mono:wght@400..600&family=Plus+Jakarta+Sans:wght@400..700&display=swap">
+<link rel="stylesheet" href="app.css">
+<script>try{var t=localStorage.getItem('gio-tema');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="brand wm" href="./" aria-label="get it office"><span class="kap">get</span>&nbsp;<span class="fi"><b></b><i></i></span>t <span class="off">office</span></a>
+  <button class="live" id="live" aria-label="Segarkan data"><i></i><span class="lbl">LIVE</span> <span id="liveTxt">nyambung…</span></button>
+  <button class="ib" id="btnTheme" aria-label="Ganti tema"><svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
+  <button class="bossbtn" id="btnDesk" data-open-desk hidden><svg viewBox="0 0 24 24"><path d="M3 13l2.5-8h13L21 13v6H3z"/><path d="M3 13h5l1.5 2.5h5L16 13h5"/></svg><span class="t">Meja bos</span><b id="deskCount">0</b></button>
+  <button class="masuk" id="btnMasuk">Masuk</button>
+  <button class="me-btn" id="btnAkun" aria-label="Akun" hidden>A</button>
+</div></header>
+
+<div class="shell">
+  <nav class="rail" id="rail" aria-label="Tampilan"></nav>
+  <main>
+    <div class="pulse" id="pulse"></div>
+    <div class="banner" id="banner" hidden></div>
+
+    <section class="view" id="v-kantor">
+      <div class="vhead"><div><h1>Kantor tim</h1><p id="kSub">Ketuk orangnya buat liat lagi ngerjain apa. Geser dan cubit buat zoom.</p></div></div>
+      <div class="filters" id="kFilters"></div>
+      <div class="stage" id="stage">
+        <svg id="floor" viewBox="0 0 1000 750" preserveAspectRatio="xMidYMid meet" aria-label="Denah kantor tim"></svg>
+        <div class="legend"><span><i style="background:var(--s-jalan)"></i>jalan</span><span><i style="background:var(--accent)"></i>nunggu</span><span><i style="background:var(--s-beres)"></i>beres</span><span><i style="background:var(--s-gagal)"></i>gagal</span><span><i style="background:var(--s-diam)"></i>diam</span></div>
+        <div class="zoomer">
+          <button class="ib" id="zIn" aria-label="Perbesar"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+          <button class="ib" id="zOut" aria-label="Perkecil"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button>
+          <button class="ib" id="zFit" aria-label="Liat semua"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+        </div>
+        <div class="ticker" id="ticker"></div>
+        <div class="kosong" id="kEmpty" hidden></div>
+      </div>
+      <div class="feedlist" id="kFeedM"></div>
+    </section>
+
+    <section class="view" id="v-chat" hidden>
+      <div class="vhead"><div><h1>Grup chat</h1><p id="chSub">Kabar dari tiap orang, urut waktu.</p></div></div>
+      <div class="filters chanchips" id="chanChips"></div>
+      <div class="chat">
+        <div class="chans" id="chans"></div>
+        <div class="cmain">
+          <div class="chead"><div><h2 id="chTitle">#semua</h2><p id="chDesc"></p></div></div>
+          <div class="msgs" id="msgs"></div>
+          <form class="composer" id="composer" hidden>
+            <div class="to" id="toHint">Ke: tim (lewat Manajer)</div>
+            <div class="row"><input id="chatIn" autocomplete="off" maxlength="500" placeholder="Tulis ke tim, sebut nama buat ke orang tertentu" aria-label="Pesan"><button class="btn pri" type="submit" id="chatSend">Kirim</button></div>
+          </form>
+          <div class="guestnote" id="guestNote">Mode tamu cuma bisa liat. <button class="link" data-login>Masuk</button> buat ngobrol sama tim.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+<nav class="tabbar" id="tabbar" aria-label="Tampilan"></nav>
+
+<div class="scrim" id="scrim"></div>
+<aside class="sheet" id="sheet" aria-label="Profil" aria-hidden="true"><div class="grab"></div><div class="sh-in" id="sheetIn"></div></aside>
+<div class="modal" id="desk" role="dialog" aria-label="Meja bos" aria-hidden="true"><div class="mcard" id="deskIn"></div></div>
+<div class="modal" id="auth" role="dialog" aria-label="Masuk" aria-hidden="true"><div class="mcard" id="authIn"></div></div>
+<div class="toasts" id="toasts"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
